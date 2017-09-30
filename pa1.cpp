@@ -145,7 +145,7 @@ void checkSum(int** square, int size){
   }
   printf("\n");
 
-  //Checking sum of diagonals (Work in progress)
+  //Checking sum of diagonals
   int diaSum1 = 0; //Diagonal from the right
   for (int i = 0; i < size; i++) {
     for (int j = 0; j < size; j++){
