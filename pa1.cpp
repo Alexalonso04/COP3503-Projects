@@ -1,9 +1,9 @@
 #include <iostream>
 #include <string.h>
-#include <stdio.h>
 #include <tgmath.h>
 
 using namespace std;
+
 //Initializing Functions
 void printArray(int** square, int size);
 int** magicSquare(int size);
@@ -171,24 +171,24 @@ void checkSum(int** square, int size){
 //Checking for correct input
 int checkInput() {
   int input = 0;
-  std::cout << "Enter the size of the magic square: " << std::endl;
-  std::cin >> input;
+  cout << "Enter the size of the magic square: " << endl;
+  cin >> input;
   while((input % 2) == 0 || (input < 3 || input > 15)) {
     if (input == 0){
-      std::cout <<"Invalid Input. Please enter a non-zero" <<std::endl;
-      std::cin >> input;
+      cout <<"Invalid Input. Please enter a non-zero" << endl;
+      cin >> input;
     } else if (input < 3 || input > 15) {
-      std::cout <<"Invalid Input. Please enter a number between 3 and 15." <<std::endl;
-      std::cin >> input;
+      cout <<"Invalid Input. Please enter a number between 3 and 15." << endl;
+      cin >> input;
     } else if (input % 2 == 0) {
-      std::cout <<"Invalid Input. Please enter an odd number." <<std::endl;
-      std::cin >> input;
+      cout <<"Invalid Input. Please enter an odd number." <<endl;
+      cin >> input;
     }
   }
   return input;
 }
 
-//Flipping array over a vertical axis
+//Flipping array over a horizontal axis
 int** flipArray(int** square, int size){
   int** flipedArray = newArray(size);
   for (int i = 0; i < size; i++){
