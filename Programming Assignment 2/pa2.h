@@ -19,14 +19,16 @@ class LinkedList {
     public:
         int size();
         void add();
-        LinkedList(string space);
-        string isFree();
+        LinkedList(string status);
+        string status();
+        void print();
+        void initialize();
         
 };
 
-LinkedList::LinkedList(string space){
+LinkedList::LinkedList(string status){
     head = new Node();
-    head->data = space;
+    head->data = status;
 }
 
 int LinkedList::size(void) {
@@ -52,8 +54,20 @@ void LinkedList::add() {
     }
 }
 
-string LinkedList::isFree(){
+string LinkedList::status(){
     return head->getData();
+}
+
+void LinkedList::print(){
+    Node *temp = head;
+    int counter = 0;
+    while (temp -> next !=NULL){
+        if (counter % 8 == 0) {
+            cout << "\n";
+        }
+        cout << temp->getData() << "\t";
+        temp = temp -> next;
+    }
 }
 
 #endif // "PA2_H"
