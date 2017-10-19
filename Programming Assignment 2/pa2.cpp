@@ -4,9 +4,11 @@
 #include "pa2.h"
 
 using namespace std;
-int LinkedList::size();
 
 int main(int argc, char **argv) {
+
+    string fit = argv[1];
+    cout << "Using " << fit <<" algorithm" << endl;
 
     // string type;
     // for (int i = 0; i < argv.length; i++) {
@@ -64,10 +66,14 @@ int main(int argc, char **argv) {
         }
     */
 
-    LinkedList *availableList = new LinkedList();
-    LinkedList *occupiedList = new LinkedList();
+    LinkedList *availableList = new LinkedList("FREE");
+    LinkedList *occupiedList = new LinkedList("BUSY");
 
+    for(int i = 0; i < 31; i++){
+        availableList->add();
+    }
     int size = availableList->size();
+    
     cout << size << endl;
 
-    }
+}
