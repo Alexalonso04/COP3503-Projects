@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string.h>
 #include <cstdlib>
+#include <cmath>
 #include "pa2.h"
 
 using namespace std;
@@ -15,6 +16,7 @@ using namespace std;
 void initializeList(LinkedList *list);
 void MainMenu(string fit);
 int checkInput();
+void addProgram(string fit);
 
 int main(int argc, char **argv) {
 
@@ -27,11 +29,11 @@ int main(int argc, char **argv) {
 
     //Main Menu for the program
     MainMenu(fit);
-
 }
 
 
 void initializeList(LinkedList *list) {
+    //Adds 32 nodes to the linked list
     for(int i = 0; i < 32; i++){
         list->add();        
     }
@@ -53,21 +55,8 @@ void MainMenu(string fit){
         switch(choice) {
             //Add a Program
             case 1:
-                if (fit == "best"){
-                    cout << "Choice - " << choice << endl;
-                    //Program Name
-                    cout << "Program Name - ";
-                    cin >> name;
+                cout << "Choice - " << choice << endl;
 
-                    //Program Size
-                    int size;
-                    cout << "Program Size (KB) - ";
-                    cin >> size;
-
-                    
-                } else if (fit == "worst"){
-
-                }
                 break;
                 
             //Kill a Program
@@ -103,4 +92,24 @@ int checkInput(){
         }
     } while (choice < 1 || choice > 5);
     return choice;
+}
+
+void addProgram(string fit){
+    string name;
+    int size;
+    if (fit == "best"){
+        //Program Name
+        cout << "Program Name - ";
+        cin >> name;
+
+        //Program Size
+        int size;
+        cout << "Program Size (KB) - ";
+        cin >> size;
+
+        //Check if it's possible to add the program
+        
+    } else if (fit == "worst"){
+
+    }
 }

@@ -1,6 +1,8 @@
 #ifndef PA2_H
 #define PA2_H
-#include <string.h>
+#include <string>
+#include <cstdlib>
+#include <cmath>
 
 using namespace std;
 
@@ -21,6 +23,7 @@ struct Node {
         string status();
         void print();
         void initialize();
+        void insert(int size, string name);
         
 };
 
@@ -58,10 +61,10 @@ void LinkedList::add() {
     }
 }
 
-//
-string LinkedList::status(){
-    return head->data;
-}
+// 
+// string LinkedList::status(){
+//     return head->data;
+// }
 
 
 //Prints the list
@@ -79,4 +82,12 @@ void LinkedList::print(){
     }
 }
 
+void LinkedList::insert(int size, string name){
+    Node *temp = head;
+    while (temp -> next != NULL) {
+        temp = temp -> next;
+    }
+    temp -> next = new Node();
+    temp->data = "Free";
+}
 #endif // "PA2_H"
