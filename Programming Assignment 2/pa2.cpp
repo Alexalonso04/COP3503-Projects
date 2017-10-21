@@ -5,38 +5,56 @@
 
 using namespace std;
 
+/* TODO:
+    -Design a function to insert programs in memory
+    -Implement best and worst fit algorithms
+*/
+
+
+//Functions
+void initializeList(LinkedList *list);
+void MainMenu(string fit);
+int checkInput();
+
 int main(int argc, char **argv) {
 
+    //Initialize LinkedList to 32 available nodes
+    LinkedList *availableList = new LinkedList("FREE");
+    initializeList(availableList);
+
+    //User's choice for best or worst fit algorithm
     string fit = argv[1];
-    cout << "Using " << fit <<" algorithm" << endl;
 
-    // string type;
-    // for (int i = 0; i < argv.length; i++) {
-    //     type [i] = argv[i][0];
-    // }
+    //Main Menu for the program
+    MainMenu(fit);
 
-    // cout << string << endl;
+}
 
-    int choice = 0;    
-    //Main Menu
-    /*
-    while(choice !=5){
-        //error checking
-            do {
-                cout << "1. Add program \n" << "2. Kill program \n" << "3. Fragmentation \n" << "4. Print memory \n" << "5. Exit" <<endl;
-                cin >> choice;
-                if (choice < 1 || choice > 5) {
-                    cout << "Error, invalid input. Please try again" << endl;
-                }
-            } while (choice < 1 || choice > 5);
 
-            //selection 
-            string name;
-            switch (choice) {
-                //Adding a Program
-                case 1:
+void initializeList(LinkedList *list) {
+    for(int i = 0; i < 32; i++){
+        list->add();        
+    }
+}
+
+void MainMenu(string fit){
+    
+    //Type of Algorithm selected by the users
+    string status = fit;
+    cout << "Using " << fit << " algorithm:" << "\n" << endl;
+
+    int choice = 0;
+    while(choice !=5) {
+        //Error checking
+        choice = checkInput();
+
+        //Selection 
+        string name;
+        switch(choice) {
+            //Add a Program
+            case 1:
+                if (fit == "best"){
                     cout << "Choice - " << choice << endl;
-
                     //Program Name
                     cout << "Program Name - ";
                     cin >> name;
@@ -45,35 +63,44 @@ int main(int argc, char **argv) {
                     int size;
                     cout << "Program Size (KB) - ";
                     cin >> size;
-                    break;
 
-                case 2:
-                    cout << "Choice - " << choice << endl;
-                    break;
+                    
+                } else if (fit == "worst"){
+
+                }
+                break;
                 
-                case 3:
-                    cout << "Choice - " << choice << endl;
-                    break;
+            //Kill a Program
+            case 2:
+                cout << "Choice - " << choice << endl;
+                break;
+            
+            //Display Fragmentation
+            case 3:
+                cout << "Choice - " << choice << endl;
+                break;
+            
+            //Print Memory
+            case 4:
+                cout << "Choice - " << choice << endl;
+                break;
                 
-                case 4:
-                    cout << "Choice - " << choice << endl;
-                    break;
-                
-                case 5:
-                    cout << "Choice - " << choice << endl;
-                    break;
-            }
+            //Exit Program
+            case 5:
+                cout << "Choice - " << choice << endl;
+                break;    
         }
-    */
+    }    
+}
 
-    LinkedList *availableList = new LinkedList("FREE");
-    LinkedList *occupiedList = new LinkedList("BUSY");
-
-    for(int i = 0; i < 31; i++){
-        availableList->add();
-    }
-    int size = availableList->size();
-    
-    cout << size << endl;
-
+int checkInput(){
+    int choice = 0;
+    do {
+        cout << "1. Add program \n" << "2. Kill program \n" << "3. Fragmentation \n" << "4. Print memory \n" << "5. Exit" <<endl;
+        cin >> choice;
+        if (choice < 1 || choice > 5) {
+            cout << "Error, invalid input. Please try again" << endl;                
+        }
+    } while (choice < 1 || choice > 5);
+    return choice;
 }
