@@ -8,11 +8,10 @@ using namespace std;
 
 /* TODO:
     -Implement worst fit algorithm
-    -Display Fragmentation
 */
 
 /*STATUS:
-    -Everything currently working. Stable version.
+    -Fragmentation working properly
 */
 
 

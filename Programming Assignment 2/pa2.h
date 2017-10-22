@@ -25,6 +25,7 @@ public:
 //Member functions and variables of the LinkedList
     Node *head;    
     public:
+        int globalPosition;
         int size();
         void add();
         LinkedList(string status);
@@ -35,7 +36,7 @@ public:
         void remove(string name);  
         int enoughSpace(int size);
         int exists(string name);  
-        int fragmentationStatus()  ;
+        int fragmentationStatus();
         
 };
 
@@ -68,7 +69,7 @@ void LinkedList::add() {
             temp = temp -> next;
         }
         temp -> next = new Node();
-        temp->data = "FREE";
+        temp-> data = "FREE";
     }
 }
 
@@ -188,26 +189,19 @@ int LinkedList::enoughSpace(int size){
 }
 
 int LinkedList::fragmentationStatus(){
-    Node *temp = head;
+    Node *current = head;
+    Node *previous = NULL;
     int counter = 0;
     int index = 0;
-    while (temp -> next !=NULL){
-        if (temp -> data != "FREE"){
-            cout << "Node " << index << " is " << temp -> data << endl;            
-            temp = temp -> next;
-            index++;
-            cout << "Checking next node...." << endl;
-            cout << "Next node is " << temp ->data << endl;
-            if (temp -> data == "FREE"){
-                counter ++;
-                cout << "Found " << counter << " fragment(s)" << endl;
-            }
+    while (current -> next != NULL){
+        if (current -> data == "FREE" && current -> next -> data != "FREE"){
+            counter ++;
         }
-        temp = temp -> next;
-        index++;        
-    }
-    temp = head; //Resets to the head, given that this function is called more than once
-    return counter;
+        current = current -> next;
+        index++;   
+    }     
+ //Resets to the head, given that this function is called more than once
+    return counter;    
 }
 
 #endif // "PA2_H"
