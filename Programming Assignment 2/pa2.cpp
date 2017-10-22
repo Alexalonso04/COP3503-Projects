@@ -1,20 +1,27 @@
 #include <iostream>
 #include <string.h>
 #include <cstdlib>
+#include <cmath>
 #include "pa2.h"
 
 using namespace std;
 
 /* TODO:
-    -Design a function to insert programs in memory
-    -Implement best and worst fit algorithms
+    -Implement worst fit algorithm
+    -Display Fragmentation
+*/
+
+/*STATUS:
+    -Everything currently working. Stable version.
 */
 
 
 //Functions
 void initializeList(LinkedList *list);
-void MainMenu(string fit);
+void MainMenu(string fit, LinkedList *list);
 int checkInput();
+void addProgram(string fit, LinkedList *list);
+void spaceAvailable(LinkedList *list);
 
 int main(int argc, char **argv) {
 
@@ -26,22 +33,23 @@ int main(int argc, char **argv) {
     string fit = argv[1];
 
     //Main Menu for the program
-    MainMenu(fit);
+    MainMenu(fit, availableList);
 
 }
 
 
 void initializeList(LinkedList *list) {
+    //Adds 32 nodes to the linked list
     for(int i = 0; i < 32; i++){
         list->add();        
     }
 }
 
-void MainMenu(string fit){
+void MainMenu(string fit, LinkedList *list){
     
     //Type of Algorithm selected by the users
     string status = fit;
-    cout << "Using " << fit << " algorithm:" << "\n" << endl;
+    cout << "Using " << fit << " fit algorithm:" << endl;
 
     int choice = 0;
     while(choice !=5) {
@@ -53,26 +61,17 @@ void MainMenu(string fit){
         switch(choice) {
             //Add a Program
             case 1:
-                if (fit == "best"){
-                    cout << "Choice - " << choice << endl;
-                    //Program Name
-                    cout << "Program Name - ";
-                    cin >> name;
-
-                    //Program Size
-                    int size;
-                    cout << "Program Size (KB) - ";
-                    cin >> size;
-
-                    
-                } else if (fit == "worst"){
-
-                }
+                cout << "Choice - " << choice << endl;
+                addProgram(fit, list);
                 break;
                 
             //Kill a Program
             case 2:
                 cout << "Choice - " << choice << endl;
+                cout << "Program name - ";
+                cin >> name;
+
+                list->remove(name);
                 break;
             
             //Display Fragmentation
@@ -83,6 +82,7 @@ void MainMenu(string fit){
             //Print Memory
             case 4:
                 cout << "Choice - " << choice << endl;
+                list->print();
                 break;
                 
             //Exit Program
@@ -96,7 +96,7 @@ void MainMenu(string fit){
 int checkInput(){
     int choice = 0;
     do {
-        cout << "1. Add program \n" << "2. Kill program \n" << "3. Fragmentation \n" << "4. Print memory \n" << "5. Exit" <<endl;
+        cout <<"\n" << "1. Add program \n" << "2. Kill program \n" << "3. Fragmentation \n" << "4. Print memory \n" << "5. Exit" <<endl;
         cin >> choice;
         if (choice < 1 || choice > 5) {
             cout << "Error, invalid input. Please try again" << endl;                
@@ -104,3 +104,23 @@ int checkInput(){
     } while (choice < 1 || choice > 5);
     return choice;
 }
+
+void addProgram(string fit, LinkedList *list){
+    string name;
+    int size;
+    if (fit == "best"){
+        //Program Name
+        cout << "Program Name - ";
+        cin >> name;
+
+        //Program size
+        cout << "Program Size (KB) - ";
+        cin >> size;
+
+        list -> insertBest(size, name);
+        
+    } else if (fit == "worst"){
+
+    }
+}
+
