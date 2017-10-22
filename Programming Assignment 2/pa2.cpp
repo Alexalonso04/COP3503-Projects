@@ -7,14 +7,13 @@
 using namespace std;
 
 /* TODO:
-    -Design a function to insert programs in memory
-    -Implement best and worst fit algorithms
+    -Implement worst fit algorithm
+    -Display Fragmentation
+    -Remove a program
 */
 
 /*STATUS:
-    -Succesfully was able to add a program to the linked list using the basic size (4kb). However, when adding a second program,
-    a node gets skipped for some reason. Work on that.
-
+    -Working on designing a better function for error checking, space checking, etc;
 */
 
 
@@ -36,6 +35,7 @@ int main(int argc, char **argv) {
 
     //Main Menu for the program
     MainMenu(fit, availableList);
+
 }
 
 
@@ -114,8 +114,7 @@ void addProgram(string fit, LinkedList *list){
         cout << "Program Size (KB) - ";
         cin >> size;
 
-        list -> insert(size, name);
-        
+        list -> insertBest(size, name);
     } else if (fit == "worst"){
 
     }
