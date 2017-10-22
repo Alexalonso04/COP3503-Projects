@@ -9,11 +9,10 @@ using namespace std;
 /* TODO:
     -Implement worst fit algorithm
     -Display Fragmentation
-    -Remove a program
 */
 
 /*STATUS:
-    -Working on designing a better function for error checking, space checking, etc;
+    -Everything currently working. Stable version.
 */
 
 
@@ -69,6 +68,10 @@ void MainMenu(string fit, LinkedList *list){
             //Kill a Program
             case 2:
                 cout << "Choice - " << choice << endl;
+                cout << "Program name - ";
+                cin >> name;
+
+                list->remove(name);
                 break;
             
             //Display Fragmentation
@@ -115,6 +118,7 @@ void addProgram(string fit, LinkedList *list){
         cin >> size;
 
         list -> insertBest(size, name);
+        
     } else if (fit == "worst"){
 
     }
