@@ -37,7 +37,6 @@ int main(int argc, char **argv) {
 
 }
 
-
 void initializeList(LinkedList *list) {
     //Adds 32 nodes to the linked list
     for(int i = 0; i < 32; i++){
@@ -96,10 +95,13 @@ void MainMenu(string fit, LinkedList *list){
 int checkInput(){
     int choice = 0;
     do {
-        cout <<"\n" << "1. Add program \n" << "2. Kill program \n" << "3. Fragmentation \n" << "4. Print memory \n" << "5. Exit" <<endl;
-        cin >> choice;
-        if (choice < 1 || choice > 5) {
-            cout << "Error, invalid input. Please try again" << endl;                
+        cout <<"\n" << "1. Add program \n" << "2. Kill program \n" << "3. Fragmentation \n" << "4. Print memory \n" << "5. Exit" <<endl;                    
+        if(!(cin >> choice)){
+            cin.clear(); //Clear the input stream
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); //Ignore input that doesn't math the input type or exceeds the maximum input values accepted
+            cout << "Error, invalid input. Please try again " << endl;
+        } else if (choice < 1 || choice > 5) {
+            cout << "Error, invalid input. Please try again " << endl;                
         }
     } while (choice < 1 || choice > 5);
     return choice;
