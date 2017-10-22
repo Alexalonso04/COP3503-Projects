@@ -25,14 +25,14 @@ public:
 //Member functions and variables of the LinkedList
     Node *head;    
     public:
-        int globalPosition;
+        int globalPosition; //position used to determine where to place a node using the worst fit algorithm
         int size();
         void add();
         LinkedList(string status);
         string status();
         void print();
         void initialize();
-        void insertBest(int size, string name);
+        void insert(int size, string name, string fit);
         void remove(string name);  
         int enoughSpace(int size);
         int exists(string name);  
@@ -88,7 +88,7 @@ void LinkedList::print(){
     }
 }
 
-void LinkedList::insertBest(int size, string name){
+void LinkedList::insert(int size, string name, string fit){
     Node *current = head;
     int nodes = ceil(size/4.0);
 
@@ -98,28 +98,42 @@ void LinkedList::insertBest(int size, string name){
     //Check if there is an existing program
     int exists = LinkedList::exists(name);
     
+    if (position >= globalPosition){
+        globalPosition = position;
+    }
     
     //If there is not enough memory available
     if (position == 400) {
         cout << "\nERROR, not enough memory for Program " << name << "." << endl;
     } else if (exists == 1) {
         cout << "\nERROR, Program " << name << " already running." << endl;
-    } else { //There is enough memory for the program
-
+    } else if (fit == "best") { //There is enough memory for the program
         //Adds the program at the position found. Starts adding the program at the (position - nodes)th iteration up to
         //the positionth iteration
-        Node *temp = head;    
         int i = 0; //i is used as the iterator here
         int filled = 0;
-            while (temp -> next != NULL && filled != nodes) {
-                if (temp -> data == "FREE" && ((i >= position - nodes) && i < position)){
-                    temp -> data = name;
+            while (current -> next != NULL && filled != nodes) {
+                if (current -> data == "FREE" && ((i >= position - nodes) && i < position)){
+                    current -> data = name;
                     filled++;
                 }
-            temp = temp -> next;
+            current = current -> next;
             i++;
         }
-        cout << "\nProgram " << name <<" added successfully: " << nodes << " page(s) used" << endl;
+        cout << "\nProgram " << name << " added successfully: " << nodes << " page(s) used" << endl;
+    } else if (fit == "worst") {
+        int i = 0; //i is used as the iterator here
+        int filled = 0;
+            while (current -> next != NULL && filled != nodes) {
+                if (current -> data == "FREE" && i == globalPosition - 1){
+                    current -> data = name;
+                    filled++;
+                    globalPosition++;                    
+                }
+            current = current -> next;
+            i++;
+        }
+        cout << "\nProgram " << name << " added successfully: " << nodes << " page(s) used" << endl;        
     }
 }
 
@@ -165,7 +179,7 @@ int LinkedList::enoughSpace(int size){
     int nodes = ceil(size/4.0);
 
     int available = 0;
-    int position;
+    int position = 0;
 
     //Check if there is space available
     while (temp -> next != NULL) {

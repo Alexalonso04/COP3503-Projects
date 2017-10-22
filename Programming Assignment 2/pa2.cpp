@@ -112,7 +112,6 @@ int checkInput(){
 void addProgram(string fit, LinkedList *list){
     string name;
     int size;
-    if (fit == "best"){
         //Program Name
         cout << "Program Name - ";
         cin >> name;
@@ -121,10 +120,6 @@ void addProgram(string fit, LinkedList *list){
         cout << "Program Size (KB) - ";
         cin >> size;
 
-        list -> insertBest(size, name);
-        
-    } else if (fit == "worst"){
-
-    }
+        list -> insert(size, name, fit);
 }
 
