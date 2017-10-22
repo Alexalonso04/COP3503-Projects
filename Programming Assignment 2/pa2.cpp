@@ -57,6 +57,7 @@ void MainMenu(string fit, LinkedList *list){
 
         //Selection 
         string name;
+        int fragments;
         switch(choice) {
             //Add a Program
             case 1:
@@ -76,6 +77,8 @@ void MainMenu(string fit, LinkedList *list){
             //Display Fragmentation
             case 3:
                 cout << "Choice - " << choice << endl;
+                fragments = list->fragmentationStatus();
+                cout << "There are " << fragments << "(s) fragments." << endl;
                 break;
             
             //Print Memory

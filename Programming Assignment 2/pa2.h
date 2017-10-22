@@ -34,7 +34,8 @@ public:
         void insertBest(int size, string name);
         void remove(string name);  
         int enoughSpace(int size);
-        int exists(string name);    
+        int exists(string name);  
+        int fragmentationStatus()  ;
         
 };
 
@@ -184,6 +185,29 @@ int LinkedList::enoughSpace(int size){
     } else {
         return 400; //400 represents the error of no space available
     }
+}
+
+int LinkedList::fragmentationStatus(){
+    Node *temp = head;
+    int counter = 0;
+    int index = 0;
+    while (temp -> next !=NULL){
+        if (temp -> data != "FREE"){
+            cout << "Node " << index << " is " << temp -> data << endl;            
+            temp = temp -> next;
+            index++;
+            cout << "Checking next node...." << endl;
+            cout << "Next node is " << temp ->data << endl;
+            if (temp -> data == "FREE"){
+                counter ++;
+                cout << "Found " << counter << " fragment(s)" << endl;
+            }
+        }
+        temp = temp -> next;
+        index++;        
+    }
+    temp = head; //Resets to the head, given that this function is called more than once
+    return counter;
 }
 
 #endif // "PA2_H"
