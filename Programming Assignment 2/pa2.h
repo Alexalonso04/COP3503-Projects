@@ -120,9 +120,11 @@ void LinkedList::insert(int size, string name, string fit){
         }
         cout << "\nProgram " << name << " added successfully: " << nodes << " page(s) used" << endl;
     }
+
+    //Steps for worst fit algorithm
     if (!enoughSpace(size, globalPosition)) {
         cout << "ERROR, not enough memory for Program " << name << "." << endl;
-    }else if (fit == "worst") {
+    } else if (fit == "worst") {
         int i = 0; //i is used as the iterator here
         int filled = 0;
             while (current -> next != NULL && filled != nodes) {
@@ -207,7 +209,7 @@ bool LinkedList::enoughSpace(int size, int position){
     Node *current = head;
     int nodes = ceil(size/4.0);
 
-    bool enoughSpace = true;
+    bool enoughSpace = false;
 
     int available = 0;
     int i = 0;
