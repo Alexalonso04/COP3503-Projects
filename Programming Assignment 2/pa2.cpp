@@ -100,7 +100,7 @@ int checkInput(){
         cout <<"\n" << "1. Add program \n" << "2. Kill program \n" << "3. Fragmentation \n" << "4. Print memory \n" << "5. Exit" <<endl;                    
         if(!(cin >> choice)){
             cin.clear(); //Clear the input stream
-            cin.ignore(999, '\n')
+            cin.ignore(999, '\n');
             //cin.ignore(numeric_limits<streamsize>::max(), '\n'); //Ignore input that doesn't math the input type or exceeds the maximum input values accepted
             cout << "Error, invalid input. Please try again " << endl;
         } else if (choice < 1 || choice > 5) {
