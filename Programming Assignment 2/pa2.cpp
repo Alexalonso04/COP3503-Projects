@@ -4,6 +4,14 @@
 #include <cmath>
 #include "pa2.h"
 
+/*
+//Name: Alejandro Alonso
+//UFID: 3635-5787
+//Assignment 2
+//Date: 10/15/2017
+*/
+
+
 using namespace std;
 
 /* TODO:
