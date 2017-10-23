@@ -11,7 +11,7 @@ using namespace std;
 */
 
 /*STATUS:
-    -Fragmentation working properly
+    -System functional. Implement test cases for when a full memory is reached.
 */
 
 
