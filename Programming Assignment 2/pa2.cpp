@@ -24,6 +24,10 @@ void spaceAvailable(LinkedList *list);
 
 int main(int argc, char **argv) {
 
+    if (argc != 2) {
+        cout << "Usage ./<program>.out [worst/best]"
+    }
+
     //Initialize LinkedList to 32 available nodes
     LinkedList *availableList = new LinkedList("FREE");
     initializeList(availableList);
