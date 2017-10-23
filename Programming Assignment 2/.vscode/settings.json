@@ -20,6 +20,8 @@
         "memory": "cpp",
         "new": "cpp",
         "streambuf": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "string": "cpp",
+        "cmath": "cpp"
     }
 }
