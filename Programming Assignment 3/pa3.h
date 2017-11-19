@@ -14,6 +14,7 @@ class Stack {
     void push(string a);
     void print();
     string pop();
+    int getSize();
 };
 
 #endif // "PA3_H"
