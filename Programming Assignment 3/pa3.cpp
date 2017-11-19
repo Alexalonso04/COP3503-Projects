@@ -14,6 +14,7 @@ int main() {
     //check for input
     fileName = checkInput(fileName);
 
+    //Open the new file
     ifstream newFile;
     newFile.open(fileName);
 
@@ -26,6 +27,8 @@ int main() {
     }
     numberStack->print();
 
+    cout << "Let's pop the first one now" << endl;
+    cout << numberStack->pop() << endl;
 
 
 
@@ -60,12 +63,12 @@ Stack::Stack() {
 //Push method
 void Stack::push(string a){
     if ((index + 1) == size) {
-        string *newArray = new string[size*2];
+        string *newArray = new string[size * 2];
             for (int i = 0; i < size; i++){
                 newArray[i] = array[i];
             }
         array = newArray;
-        size = size*2;    
+        size = size * 2;    
     }
     index++;
     array[index] = a;
@@ -76,4 +79,15 @@ void Stack::print() {
     for (int i = 0; i < index + 1; i ++) {
         cout << array[i] << endl;
     }
+}
+
+//Pop Method
+string Stack::pop(){
+    string element;
+    if (array[0] == "NULL"){
+        return 0;
+    }
+    element = array[index];
+    index--;
+    return element;      
 }

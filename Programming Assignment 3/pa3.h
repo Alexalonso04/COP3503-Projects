@@ -13,6 +13,7 @@ class Stack {
     Stack();
     void push(string a);
     void print();
+    string pop();
 };
 
 #endif // "PA3_H"
