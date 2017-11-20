@@ -3,6 +3,7 @@
 #include <fstream>
 #include <vector>
 #include <sstream>
+#include <set>
 
 /*TODO:
     - Implement stacks for deteting each type of word we're looking for 
@@ -16,6 +17,7 @@ bool isKeyword(int key);
 bool isIdentifier(int key);
 bool isDelimitier(int key);
 bool isOperator(int key);
+void printSet(set<string> &sets, string name);
 
 int main() {
     //char **words;
@@ -29,12 +31,11 @@ int main() {
     //Open the new file
     ifstream newFile;
     string line;
-    vector<string> identifiers;
-    vector<string> constants;
-    vector<string> keywords;
-    vector<string> delimitiers;
-    vector<string> operators;
-
+    set<string> identifiers;
+    set<string> constants;
+    set<string> keywords;
+    set<string> delimitiers;
+    set<string> operators;
 
     //Identifies the types of input  
     newFile.open(fileName);
@@ -44,13 +45,12 @@ int main() {
             string identifier;
             string constant;
             string keyword;
-            string operators;
-            string delimitiers;
+            string operations;
 
             istringstream iss(line);
             string word;
             while (iss >> word){
-                for (int i = 0; i < word.length(); i++){
+                for (int i = 0; i < word.length(); i++) {
                     //Checking if its a constant
                     if (isNumber(int(word[i]))){
                         cout << "word[i] is " << word[i] << endl;
@@ -64,12 +64,14 @@ int main() {
                     //Checking if its an operator
                     } else if (isOperator(int(word[i]))) {
                         cout << "word[i] is " << word[i] << endl;
-                        operators += word[i];
+                        operations += word[i];
 
                     //Checking if its a delimitier
                     } else if (isDelimitier(int(word[i]))) {
                         cout << "word[i] is " << word[i] << endl;
-                        delimitiers += word[i];
+                        string delim;
+                        delim += word[i];
+                        delimitiers.insert(delim);
 
                     //Checking if its an identifier
                     } else if (isIdentifier(int(word[i]))) {
@@ -78,13 +80,21 @@ int main() {
                     }
                 }
             }
-            cout << "Identifier: " << identifier << endl;
-            cout << "Constant: " << constant << endl;
-            cout << "Keyword: " << keyword << endl;
-            cout << "Operators: " << operators << endl;
-            cout << "Delimitiers: " << delimitiers << endl;
+            identifiers.insert(identifier);
+            constants.insert(constant);
+            keywords.insert(keyword);
+            operators.insert(operations);
+
+            printSet(identifiers, "Identifiers: ");
+            printSet(constants, "Constants: ");
+            printSet(keywords, "Keywords: ");
+            printSet(delimitiers, "Delimitiers: ");
+            printSet(operators, "Operators: ");
         }
-    }  
+    }
+
+
+
     newFile.close();
 
     return 0;
@@ -104,28 +114,6 @@ string checkInput(string fileName) {
     cout << "File openned sucessfully" << endl;
     return name;
 }
-
-//Determine of the character is a number 
-// bool isConstant(string key) {
-
-//     cout << key << endl;
-
-//     // stringstream st;
-//     // st << key;
-//     // float number = 0;
-//     // bool isNumber = true;
-
-//     // st >> number;
-//     // if (st.good()){
-//     //     isNumber = false;
-//     // } else if (number == 0 && key[0] != '0'){
-//     //     isNumber = false;
-//     // } else {
-//     //     isNumber = true;
-//     // }
-
-//     return isNumber;
-// }
 
 bool isNumber(int key) {
     bool number = false;
@@ -165,7 +153,14 @@ bool isOperator(int key) {
     return (key == 42 || key == 43 || key == 45 || key == 47 || key == 61) ? true : false;
 }
 
-
+void printSet(set<string> &sets, string name) {
+    cout << name;
+    set<string>::iterator it; 
+    for (it = sets.begin(); it != sets.end(); it++) {
+        cout << *it;
+    }
+    cout << "\n";    
+}
 //Stack Methods
 
 //Constructor
