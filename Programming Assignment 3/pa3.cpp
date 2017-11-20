@@ -18,6 +18,7 @@ bool isIdentifier(int key);
 bool isDelimitier(int key);
 bool isOperator(int key);
 void printSet(set<string> &sets, string name);
+vector<string> checkKeywords(Stack *keyword);
 
 int main() {
     //char **words;
@@ -36,19 +37,26 @@ int main() {
     set<string> keywords;
     set<string> delimitiers;
     set<string> operators;
+    Stack *keywordStack = new Stack();
 
     //Identifies the types of input  
     newFile.open(fileName);
     if(newFile.is_open()){
 
+        //Gets the first line of the document to analyze
         while ( getline (newFile,line) ){
+            /*String for the different types we're looking for. Only the types that may contain more than 1 character
+            are included here*/
             string identifier;
             string constant;
             string keyword;
             string operations;
 
+            //Converts the line into a string stream
             istringstream iss(line);
             string word;
+
+            //Goes through each word on the line that was gotten from getLine()
             while (iss >> word){
                 for (int i = 0; i < word.length(); i++) {
                     //Checking if its a constant
@@ -80,27 +88,28 @@ int main() {
                     }
                 }
             }
+            cout << "Inserted the words in each vector" << endl;
             identifiers.insert(identifier);
             constants.insert(constant);
             keywords.insert(keyword);
             operators.insert(operations);
+            keywordStack->push(keyword);
 
-            printSet(identifiers, "Identifiers: ");
-            printSet(constants, "Constants: ");
-            printSet(keywords, "Keywords: ");
-            printSet(delimitiers, "Delimitiers: ");
-            printSet(operators, "Operators: ");
+            //Used for Printing the sets
+            // printSet(identifiers, "Identifiers: ");
+            // printSet(constants, "Constants: ");
+            // printSet(keywords, "Keywords: ");
+            // printSet(delimitiers, "Delimitiers: ");
+            // printSet(operators, "Operators: ");
         }
+
     }
-
-
-
     newFile.close();
 
     return 0;
 }
 
-//Main Methods
+//Main Methods ---------------------------------------------------------
 string checkInput(string fileName) {
     ifstream newFile;
     string name = fileName;
@@ -161,8 +170,40 @@ void printSet(set<string> &sets, string name) {
     }
     cout << "\n";    
 }
-//Stack Methods
 
+// vector<string> checkKeywords(Stack *keyword) {
+//     vector<string> misSpelled;
+//     int begin;
+//     int end;
+//     int FOR;
+
+//     for (int i = 0; i < keyword->getSize(); i++){
+//         string word = keyword->pop();
+//         switch (word[i]) {
+//             case 'E':
+//                 begin++;
+//                 if (word != "BEGIN"){
+//                     misSpelled.push_back(word);
+//                 }
+//                 break;
+//             case 'F':
+//                 if (word != "FOR") {
+//                     misSpelled.push_back(word);
+//                 }
+//                 break;
+//             case 'B':
+//                 if (word != "BEGIN"){
+//                     misSpelled.push_back(word);
+//                 }
+//                 break;
+//         }
+//     }
+//     return misSpelled;
+// }
+//-----------------------------------------------------------------------
+
+
+//Stack Methods ---------------------------------------------------------
 //Constructor
 Stack::Stack() {
     size = 20;
@@ -207,3 +248,4 @@ string Stack::pop(){
 int Stack::getSize(){
     return size;
 }
+//-----------------------------------------------------------------------
